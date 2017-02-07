@@ -39,7 +39,11 @@ if get_systype() == "darwin_x86_64":
     env.Replace(
         _BINPREFIX="arm-linux-gnueabihf-"
     )
-
+if get_systype() == "linux_x86_64":
+    env.Replace(
+        _BINPREFIX="arm-linux-gnueabihf-",
+        CROSS=1
+    )
 #
 # Target: Build executable program
 #

@@ -17,7 +17,7 @@
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "https://sourceforge.net/projects/platformio-storage/files/packages/manifest.json/download",
     "http://dl.platformio.org/packages/manifest.json",
-    "http://repo.artik.cloud/artik/bin/pub/platformio/manifest.json"
+    "http://109.105.112.64/file/manifest.json"
   ],
   "frameworks": {
     "wiringpi": {
@@ -33,6 +33,10 @@
     "toolchain-gccarmlinuxgnueabi": {
       "type": "toolchain",
       "version": "~1.40802.0"
+    },
+    "toolchain-gcc-linaro-arm-linux-gnueabihf": {
+      "type": "toolchain",
+      "version": "~5.3.1"
     },
     "framework-wiringpi": {
       "type": "framework",

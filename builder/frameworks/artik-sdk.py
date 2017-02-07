@@ -28,6 +28,7 @@ from os.path import join, isdir
 from os import listdir
 
 from SCons.Script import DefaultEnvironment
+from platformio.util import get_systype
 
 env = DefaultEnvironment()
 
@@ -63,3 +64,27 @@ env.Append(
         libdir
     ]
 )
+if get_systype() == "linux_x86_64":
+    incdir = join(sdkdir, "usr", "include")
+    libdir = join(sdkdir, "usr", "lib")
+    env.Replace(
+        RPATH_LINK=env["RPATH"],
+        RPATH=[]
+    )
+    env.Append(
+        CPPPATH=[
+            incdir
+        ],
+
+        LIBPATH=[
+            libdir
+        ],
+        RPATH_LINK=[
+            libdir
+        ]
+    )
+    env.Append(
+        LINKFLAGS=[
+            "-Wl,--rpath-link="+o for o in env["RPATH_LINK"]
+        ]
+    )
