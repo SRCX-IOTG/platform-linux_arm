@@ -86,6 +86,8 @@ target_upload = env.Alias(
     "upload", target_bin,
     [env.VerboseAction(BeforeUpload, "Prepare for uploading"),
      env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")])
+AlwaysBuild(target_upload)
+
 #
 # Default targets
 #
