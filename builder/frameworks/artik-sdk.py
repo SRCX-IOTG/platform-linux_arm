@@ -28,7 +28,6 @@ from os.path import join, isdir
 from os import listdir
 
 from SCons.Script import DefaultEnvironment
-from platformio.util import get_systype
 
 env = DefaultEnvironment()
 
@@ -64,7 +63,7 @@ env.Append(
         libdir
     ]
 )
-if get_systype() == "linux_x86_64":
+if env["CROSS"]:
     incdir = join(sdkdir, "usr", "include")
     libdir = join(sdkdir, "usr", "lib")
     env.Replace(
