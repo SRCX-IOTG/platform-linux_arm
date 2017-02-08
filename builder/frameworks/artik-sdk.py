@@ -42,7 +42,8 @@ env.Replace(
         "-Wall",
         "-Winline",
         "-pipe",
-        "-fPIC"
+        "-fPIC",
+        "-g"
     ],
 
     LIBS=[

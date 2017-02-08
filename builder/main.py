@@ -16,10 +16,29 @@
     Builder for Linux ARM
 """
 
+from os.path import join
 from SCons.Script import AlwaysBuild, Default, DefaultEnvironment
 
 from platformio.util import get_systype
 
+def BeforeUpload(target, source, env):
+    if env["CROSS"] != 1:
+        print "no need for upload."
+        env.Replace(
+            UPLOADER='$GDB',
+            UPLOADERFLAGS=[
+                
+            ],
+            UPLOADCMD='$UPLOADER $UPLOADERFLAGS $SOURCES',
+        )
+        return
+    env.Replace(
+        UPLOADER=join(env.PioPlatform().get_package_dir("framework-artik-sdk"), "uploader", "uploader.py"),
+        UPLOADERFLAGS=[
+            
+        ],
+        UPLOADCMD='$UPLOADER $UPLOADERFLAGS $SOURCES ' + join(env.PioPlatform().get_package_dir("toolchain-gcc-linaro-arm-linux-gnueabihf"), 'bin', '$GDB')
+    )
 env = DefaultEnvironment()
 
 env.Replace(
@@ -28,6 +47,7 @@ env.Replace(
     AS="${_BINPREFIX}as",
     CC="${_BINPREFIX}gcc",
     CXX="${_BINPREFIX}g++",
+    GDB="${_BINPREFIX}gdb",
     OBJCOPY="${_BINPREFIX}objcopy",
     RANLIB="${_BINPREFIX}ranlib",
     SIZETOOL="${_BINPREFIX}size",
@@ -58,6 +78,14 @@ target_size = env.Alias("size", target_bin, env.VerboseAction(
     "$SIZEPRINTCMD", "Calculating size $SOURCE"))
 AlwaysBuild(target_size)
 
+#
+# Target: Upload the target_bin
+#
+
+target_upload = env.Alias(
+    "upload", target_bin,
+    [env.VerboseAction(BeforeUpload, "Prepare for uploading"),
+     env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")])
 #
 # Default targets
 #
