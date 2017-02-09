@@ -47,6 +47,11 @@
       "type": "framework",
       "optional": true,
       "version": "~1.0.0"
+    },
+    "tool-artik": {
+      "type": "uploader",
+      "optional": true,
+      "version": "0.0.1"
     }
   }
 }

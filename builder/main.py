@@ -33,7 +33,7 @@ def BeforeUpload(target, source, env):
         )
         return
     env.Replace(
-        UPLOADER=join(env.PioPlatform().get_package_dir("framework-artik-sdk"), "uploader", "uploader.py"),
+        UPLOADER="uploader.py",
         UPLOADERFLAGS=[
             
         ],
