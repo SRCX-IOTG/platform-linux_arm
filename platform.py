@@ -26,7 +26,7 @@ class Linux_armPlatform(PlatformBase):
             del packages['toolchain-gccarmlinuxgnueabi']
         if ("linux_x86_64" not in util.get_systype() and "toolchain-gcc-linaro-arm-linux-gnueabihf" in packages):
             del packages['toolchain-gcc-linaro-arm-linux-gnueabihf']
-        if ("linux_arm" in util.get_systype() and "tool-artik" in packages)
+        if ("linux_arm" in util.get_systype() and "tool-artik" in packages):
             del packages['tool-artik']
         return packages
 

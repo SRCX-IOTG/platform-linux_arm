@@ -24,21 +24,36 @@ from platformio.util import get_systype
 def BeforeUpload(target, source, env):
     if env["CROSS"] != 1:
         print "no need for upload."
-        env.Replace(
-            UPLOADER='$GDB',
-            UPLOADERFLAGS=[
+        if "gdb" in env.subst("$UPLOAD_PROTOCOL"):
+            env.Replace(
+                UPLOADER='$GDB',
+                UPLOADERFLAGS=[
 
-            ],
-            UPLOADCMD='$UPLOADER $UPLOADERFLAGS $SOURCES',
-        )
+                ],
+                UPLOADCMD='$UPLOADER $UPLOADERFLAGS $SOURCES',
+            )
+        else:
+            env.Replace(
+                UPLOADCMD='$SOURCES',
+            )
         return
-    env.Replace(
-        UPLOADER="uploader.py",
-        UPLOADERFLAGS=[
-            
-        ],
-        UPLOADCMD='$UPLOADER $UPLOADERFLAGS $UPLOAD_PORT $SOURCES ' + join(env.PioPlatform().get_package_dir("toolchain-gcc-linaro-arm-linux-gnueabihf"), 'bin', '$GDB')
-    )
+    if "gdb" in env.subst("$UPLOAD_PROTOCOL"):
+        gdb_path = join(env.PioPlatform().get_package_dir("toolchain-gcc-linaro-arm-linux-gnueabihf"), 'bin', '$GDB')
+        env.Replace(
+            UPLOADER="uploader.py",
+            UPLOADERFLAGS=[
+                
+            ],
+            UPLOADCMD='$UPLOADER $UPLOADERFLAGS $UPLOAD_PORT $SOURCES ' + gdb_path
+        )
+    else:
+        env.Replace(
+            UPLOADER="uploader.py",
+            UPLOADERFLAGS=[
+                
+            ],
+            UPLOADCMD='$UPLOADER $UPLOADERFLAGS $UPLOAD_PORT $SOURCES scp'
+        )
 env = DefaultEnvironment()
 
 env.Replace(
