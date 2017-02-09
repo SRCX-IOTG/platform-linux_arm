@@ -27,7 +27,7 @@ def BeforeUpload(target, source, env):
         env.Replace(
             UPLOADER='$GDB',
             UPLOADERFLAGS=[
-                
+
             ],
             UPLOADCMD='$UPLOADER $UPLOADERFLAGS $SOURCES',
         )
@@ -37,7 +37,7 @@ def BeforeUpload(target, source, env):
         UPLOADERFLAGS=[
             
         ],
-        UPLOADCMD='$UPLOADER $UPLOADERFLAGS $SOURCES ' + join(env.PioPlatform().get_package_dir("toolchain-gcc-linaro-arm-linux-gnueabihf"), 'bin', '$GDB')
+        UPLOADCMD='$UPLOADER $UPLOADERFLAGS $UPLOAD_PORT $SOURCES ' + join(env.PioPlatform().get_package_dir("toolchain-gcc-linaro-arm-linux-gnueabihf"), 'bin', '$GDB')
     )
 env = DefaultEnvironment()
 
