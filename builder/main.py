@@ -37,6 +37,9 @@ def BeforeUpload(target, source, env):
                 UPLOADCMD='$SOURCES',
             )
         return
+    if "UPLOAD_PORT" not in env:
+        print "you must set the upload_port in platfomio.ini"
+        return
     if "gdb" in env.subst("$UPLOAD_PROTOCOL"):
         gdb_path = join(env.PioPlatform().get_package_dir("toolchain-gcc-linaro-arm-linux-gnueabihf"), 'bin', '$GDB')
         env.Replace(
