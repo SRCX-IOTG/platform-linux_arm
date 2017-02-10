@@ -67,7 +67,8 @@ env.Replace(
     RANLIB="${_BINPREFIX}ranlib",
     SIZETOOL="${_BINPREFIX}size",
 
-    SIZEPRINTCMD='$SIZETOOL $SOURCES'
+    SIZEPRINTCMD='$SIZETOOL $SOURCES',
+    CORSS=0
 )
 
 if get_systype() == "darwin_x86_64":

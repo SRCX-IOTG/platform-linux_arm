@@ -21,7 +21,7 @@ class Linux_armPlatform(PlatformBase):
     @property
     def packages(self):
         packages = PlatformBase.packages.fget(self)
-        if ("linux_arm" in util.get_systype() or "linux_x86_64" in util.get_systype() and
+        if (("linux_arm" in util.get_systype() or "linux_x86_64" in util.get_systype()) and
                 "toolchain-gccarmlinuxgnueabi" in packages):
             del packages['toolchain-gccarmlinuxgnueabi']
         if ("linux_x86_64" not in util.get_systype() and "toolchain-gcc-linaro-arm-linux-gnueabihf" in packages):
