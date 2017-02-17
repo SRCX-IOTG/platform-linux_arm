@@ -48,7 +48,7 @@
       "optional": true,
       "version": "~1.0.0"
     },
-    "tool-artik": {
+    "tool-linux_arm": {
       "type": "uploader",
       "optional": true,
       "version": "0.0.1"
