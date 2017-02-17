@@ -21,13 +21,15 @@ class Linux_armPlatform(PlatformBase):
     @property
     def packages(self):
         packages = PlatformBase.packages.fget(self)
-        if (("linux_arm" in util.get_systype() or "linux_x86_64" in util.get_systype()) and
+        if ("darwin_x86_64" not in util.get_systype() and
                 "toolchain-gccarmlinuxgnueabi" in packages):
             del packages['toolchain-gccarmlinuxgnueabi']
-        if ("linux_x86_64" not in util.get_systype() and "toolchain-gcc-linaro-arm-linux-gnueabihf" in packages):
+        if ("darwin_x86_64" in util.get_systype() and
+                "toolchain-gcc-linaro-arm-linux-gnueabihf" in packages):
             del packages['toolchain-gcc-linaro-arm-linux-gnueabihf']
-        if ("linux_arm" in util.get_systype() and "tool-artik" in packages):
-            del packages['tool-artik']
+        if ("linux_arm" in util.get_systype() and
+                "tool-linux_arm" in packages):
+            del packages['tool-linux_arm']
         return packages
 
     def configure_default_packages(self, variables, targets):

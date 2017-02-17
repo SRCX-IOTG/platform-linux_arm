@@ -73,12 +73,7 @@ env.Replace(
     SIZEPRINTCMD='$SIZETOOL $SOURCES',
     CORSS=0
 )
-
-if get_systype() == "darwin_x86_64":
-    env.Replace(
-        _BINPREFIX="arm-linux-gnueabihf-"
-    )
-if get_systype() == "linux_x86_64":
+if ("linux_arm" not in get_systype()):
     env.Replace(
         _BINPREFIX="arm-linux-gnueabihf-",
         CROSS=1
