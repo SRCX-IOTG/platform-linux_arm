@@ -36,7 +36,7 @@
     },
     "toolchain-gcc-linaro-arm-linux-gnueabihf": {
       "type": "toolchain",
-      "version": "~5.3.1"
+      "version": "*"
     },
     "framework-wiringpi": {
       "type": "framework",
